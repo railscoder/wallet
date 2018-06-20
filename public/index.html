@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Баланс кошелька</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <link href="dashboard.css" rel="stylesheet">
+    <script src="jquery.min.js"></script>
+    <script scr="main.js"></script>
+  </head>
+
+  <body>
+
+
+    <div class="container-fluid center">
+      <div class="row">
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+          <form class="form-signin">
+            <h2 class="form-signin-heading">Please enter your ETH address</h2>
+            <label for="inputEthAddress" class="sr-only">ETH address</label>
+            <input type="text" id="inputEthAddress" class="form-control" placeholder="ETH address">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">request</button>
+          </form>
+          <div class="balance"> 
+            <h2>Баланс кошелька:</h2>
+            <h3 class="address"></h3>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Token name</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      var $regexname=/^0x[a-fA-F0-9]{40}$/;
+      $(".btn").click(function() {
+        event.preventDefault();
+        $("table tbody").empty();
+        $(".address").html($("#inputEthAddress").val());
+        if($("#inputEthAddress").val()){
+          $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3000/api/v1/wallets/' + $("#inputEthAddress").val(),
+            success: function(data) {
+              $(".balance").css({"display": "block"});
+              $.each(data, function(i, item) {
+                 var markup = "<tr><td>"+ data[i].id + "</td><td>" + data[i].name + "</td><td>" + data[i].balance + "</td></tr>";
+                 $("table tbody").append(markup);
+              })
+            }
+          });
+        }
+      });    
+    </script>
+  </body>
+</html>

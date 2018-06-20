@@ -15,6 +15,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem "active_model_serializers"
+gem "responders", "~> 2.0"
+gem "settingslogic"
+gem "ethereum.rb"
 
 
 group :development, :test do

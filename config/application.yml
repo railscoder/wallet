@@ -1,0 +1,2 @@
+development: &development
+  path: "/home/deployer/.ethereum/rinkeby/geth.ipc"
